@@ -1,0 +1,102 @@
+<!DOCTYPE HTML>
+<html lang="EN-en">
+	<head>
+		<meta charset="utf-8">
+		<title>React exzmple 2</title>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.0/react.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.0/react-dom.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.6.15/browser.js"></script>
+	</head>
+	<body>
+		<div id='content'></div>
+		<script type="text/babel">
+			const CONTACTS = [
+				{
+					id: 1,
+					name: 'Denis',
+					phoneNumber: '+38096751343',
+					image: 'url'
+				},
+				{
+					id: 2,
+					name: 'Stepan',
+					phoneNumber: '+38096751343',
+					image: 'url'
+				},
+				{
+					id: 3,
+					name: 'Andrey',
+					phoneNumber: '+38096751343',
+					image: 'url'
+				},
+				{
+					id: 4,
+					name: 'Max',
+					phoneNumber: '+38096751343',
+					image: 'url'
+				}
+			];
+
+			var Contsct = React.createClass( {
+				render: function() {
+					return (
+						<li className="list-item-class">
+							<div>{ this.props.name }</div>
+							<div>{ this.props.phoneNumber }</div>
+							<div>{ this.props.image }</div>
+						</li>
+					);
+				}
+			} );
+
+			var ContactsList = React.createClass( {
+				//метод задает состояние переменной в классе
+				getInitialState: function( event ){
+					return {
+						displayedContacts: CONTACTS
+					}
+				},
+				//метод обробатывает событие change на у input
+				hendleSearch: function( event ){
+					var searchQuery = event.target.value.toLowerCase(),
+						searchValue = null,
+						displayedContacts = CONTACTS.filter( function( element ) {
+							searchValue = element.name.toLowerCase();
+
+							return searchValue.indexOf( searchQuery ) !== -1;
+						} );
+
+					//метод обновляет состояние переменной в классе
+					this.setState({
+						displayedContacts: displayedContacts
+					})
+				},
+				//метод рендорит дерево
+				render: function() {
+					return (
+						<div className="list-class">
+							<input type="text" name="search" onChange={ this.hendleSearch } />
+							<ul>
+								{
+									this.state.displayedContacts.map( function( element ){
+										return <Contsct
+											key={ element.id }
+											name={ element.name }
+											phoneNumber={ element.phoneNumber }
+											image={ element.image }
+										/>;
+									} )
+								}
+							</ul>
+						</div>
+					);
+				}
+			} );
+
+			ReactDOM.render(
+				<ContactsList />,
+				document.getElementById('content')
+			);
+		</script>
+	</body>
+</html>
