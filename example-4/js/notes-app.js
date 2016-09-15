@@ -10,11 +10,16 @@
 		}
 	}
 	var Note = React.createClass( {
+		componentDidMount: function(){
+			//init other scripts
+			var htmlElement = this.refs.htmlElement;
+			console.log(htmlElement);
+		},
 		render: function() {
 			var title = this.props.title + ' - ' + this.props.id;
 			console.log(this.props)
 			return (
-				<div className="note" title={ title }>
+				<div className="note" title={ title } ref="htmlElement">
 					<h2 style={ style.h2 }>{ this.props.title }</h2>
 					<p style={ style.p }>{ this.props.children }</p>
 				</div>
