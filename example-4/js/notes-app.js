@@ -13,14 +13,13 @@
 		componentDidMount: function(){
 			//init other scripts
 			var htmlElement = this.refs.htmlElement;
-			console.log(htmlElement);
 		},
 		render: function() {
 			var title = this.props.title + ' - ' + this.props.id;
-			console.log(this.props)
+
 			return (
 				<div className="note" title={ title } ref="htmlElement">
-					<h2 style={ style.h2 }>{ this.props.title }</h2>
+					<h2 style={ style.h2 }> { this.props.title } </h2>
 					<p style={ style.p }>{ this.props.children }</p>
 				</div>
 			);
@@ -78,14 +77,54 @@
 				]
 			}
 		},
+		handlerNoteAdd: function( newNote ){
+			var newNotes = this.state.notes;
+
+			newNotes.unshift( newNote );
+			this.setState( { notes: newNotes } );
+		},
 		render: function() {
 			return (
 				<div className="notes-app">
+					<NoteEditor onNoteAdd={this.handlerNoteAdd}/>
 					<NotesGrid notes={ this.state.notes } />
 				</div>
 			)
 		}
 	} );
+
+	var NoteEditor = React.createClass( {
+		getInitialState: function() {
+			return{
+				text:''
+			}
+		},
+		handlerTextChange: function( event ) {
+			this.setState( { text: event.target.value } );
+		},
+		handlerNoteAdd: function() {
+			var newNote ={
+				text: this.state.text,
+				title: 'new title',
+				id: Date.now()
+			}
+
+			this.props.onNoteAdd( newNote );
+			this.setState( { text: '' } );
+		},
+		render: function() {
+			return (
+				<div>
+					<textarea
+						placeholder="enter your note here..."
+						value={this.state.text}
+						onChange={this.handlerTextChange}
+					/>
+					<button onClick={this.handlerNoteAdd}>add</button>
+				</div>
+			)
+		}
+	});
 
 	ReactDOM.render(
 		<NotesApp />,
