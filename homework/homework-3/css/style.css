@@ -1,0 +1,42 @@
+.contact{
+	list-style: none;
+	border: 1px solid #2196F3;
+	overflow: hidden;
+	margin-bottom: 21px;
+	border-radius: 53px 0 0 53px;
+	position: relative;
+}
+.contact > img{
+	width: 100px;
+	height: auto;
+	float: left;
+	margin-right: 20px;
+	border-radius: 50%;
+	border: 1px solid #2196F3;
+	border-left: 0;
+	border-bottom: 0;
+	border-top: 0;
+}
+.contact:before{
+	clear: both;
+	content: ' ';
+	display: block;
+}
+.contact > .user-name{
+	margin-top: 10px;
+}
+.contact > .icon{
+	position: absolute;
+	right: 20px;
+	top: 50%;
+	width: 25px;
+	height: 25px;
+	font-size: 25px;
+	text-align: center;
+	cursor: pointer;
+	margin-top: -12px;
+}
+.contact > .description{
+	padding: 50px 20px 10px 50px;
+	/* width: 80%; */
+	/* text-align: right; */
